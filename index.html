@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/189524564?v=4">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evan Arganta</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+  :root{
+    --bg: #000000;
+    --fg: #ffffff;
+    --dim: rgba(255,255,255,0.55);
+    --ghost: rgba(255,255,255,0.08);
+    --rule: rgba(255,255,255,0.3);
+
+    --section-space: 10rem;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'IM Fell English', serif;
+    font-size: 18px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  .grain{
+    pointer-events:none;
+    position:fixed; inset:0;
+    z-index:999;
+    opacity:0.35;
+    mix-blend-mode: overlay;
+  }
+  .grain svg{ width:100%; height:100%; }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+  }
+
+  .plate{ position:absolute; inset:0; z-index:0; }
+  .plate img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position: 62% 28%;
+    filter: grayscale(1) contrast(1.6) brightness(0.7);
+    opacity: 0.85;
+  }
+  .plate::before{
+    content:'';
+    position:absolute; inset:0;
+    background: linear-gradient(200deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.5) 60%, var(--bg) 96%);
+  }
+
+  .vert-label{
+    position:absolute;
+    top: 8vh; left: 4vw;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+    color: var(--dim);
+    z-index:2;
+    opacity:0;
+    animation: fadeIn 1.3s ease forwards 0.2s;
+  }
+
+  h1.title{
+    position:absolute;
+    top: 12vh; right: 4vw;
+    z-index:2;
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size: clamp(3rem, 12vw, 9rem);
+    letter-spacing:0.02em;
+    color: var(--fg);
+    line-height: 0.88;
+    text-align:right;
+    max-width: 90vw;
+    opacity:0;
+    animation: fadeIn 1.3s ease forwards 0.45s;
+  }
+
+  .handle{
+    position:absolute;
+    top: calc(12vh + clamp(3rem,12vw,9rem) + 2.5rem);
+    right: 6vw;
+    z-index:2;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing:0.05em;
+    color: var(--fg);
+    border-top: 1px solid var(--fg);
+    padding-top: 0.5rem;
+    opacity:0;
+    animation: fadeIn 1.3s ease forwards 0.65s;
+  }
+
+  .epigraph{
+    position:absolute;
+    bottom: 9vh; left: 6vw;
+    z-index:2;
+    font-style:italic;
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    color: var(--fg);
+    max-width: 52.5ch;
+    opacity:0;
+    animation: fadeIn 1.3s ease forwards 0.9s;
+    text-align: justify;
+  }
+
+  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+
+  /* ---------- sections ---------- */
+  section{
+    position:relative;
+    padding: var(--section-space) 6vw;
+  }
+
+  #works{ margin-top: 7.5vh; }
+
+  .section-label{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size:1rem;
+    letter-spacing:0.15em;
+    color: var(--fg);
+    margin-bottom: 3rem;
+  }
+
+  /* ---------- folios (works), scattered ---------- */
+  .folios{ max-width: 1100px; margin: 0 auto; position:relative; }
+
+  .folio{
+    position:relative;
+    margin-bottom: var(--section-space);
+  }
+
+  .ghost-no{
+    font-family:'Cinzel', serif;
+    font-weight:900;
+    font-size: clamp(6rem, 16vw, 13rem);
+    color: var(--ghost);
+    position:absolute;
+    line-height:1;
+    z-index:0;
+    user-select:none;
+  }
+
+  .folio-inner{
+    position:relative;
+    z-index:1;
+    max-width: 46ch;
+  }
+
+  .folio-body h3{
+    font-family:'Cinzel', serif;
+    font-weight:600;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    letter-spacing:0.01em;
+    color: var(--fg);
+    margin-bottom:0.7rem;
+  }
+  .folio-body h3 a{ color:inherit; text-decoration:none; border-bottom: 1px solid var(--fg); }
+
+  .folio-body p{
+    color: var(--dim);
+    font-size:1.05rem;
+  }
+
+  .folio-body .stack{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size:0.85rem;
+    letter-spacing:0.04em;
+    color: var(--dim);
+    margin-top:0.7rem;
+  }
+
+  .stamp{
+    display:inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid var(--fg);
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size:0.72rem;
+    letter-spacing:0.15em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+  .stamp.faint{ border-style: dashed; color: var(--dim); border-color: var(--dim); }
+
+  /* individual folio placements — asymmetric */
+  .folio.one{ margin-left: 0; text-align:left; }
+  .folio.one .ghost-no{ top: -3.5rem; left: -1rem; }
+
+  .folio.two{ margin-left: auto; margin-right: 4vw; text-align:right; }
+  .folio.two .folio-inner{ margin-left:auto; }
+  .folio.two .ghost-no{ top: -4rem; right: -1rem; }
+
+  .folio.three{ margin-left: 12vw; text-align:left; }
+  .folio.three .ghost-no{ top: -3rem; left: -2rem; }
+
+  /* ---------- colophon ---------- */
+  .colophon{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 0;
+  }
+  .colophon-inner{
+    max-width: 58ch;
+    margin-left: 18%;
+    text-align:justify;
+  }
+  .colophon p{
+    font-size:1.15rem;
+    color: var(--fg);
+    margin-bottom:1.3rem;
+  }
+  .colophon p:first-of-type::first-letter{
+    font-family:'Cinzel', serif;
+    font-size:4rem;
+    font-weight:700;
+    float:left;
+    line-height:0.75;
+    padding-right:0.15em;
+    color: var(--fg);
+    padding-top: .425rem;
+  }
+  .placeholder-note{
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size:0.85rem;
+    letter-spacing:0.03em;
+    color: var(--dim);
+    border-left: 3px solid var(--fg);
+    padding: 0.7rem 0 0.7rem 1.2rem;
+    margin-top: 2rem;
+    margin-right: 20%;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    text-align:left;
+    padding: 6vh 8vw 10vh;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    color: var(--dim);
+  }
+
+  .hero-footer{
+    position:relative;
+    min-height:100vh;
+    overflow:hidden;
+  }
+  .hero-footer .plate{
+    position:absolute;
+    inset:0;
+  }
+  .hero-footer .plate img{
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:62% 28%;
+    filter:grayscale(1) contrast(1.6) brightness(.28);
+    opacity:.8;
+  }
+  .hero-footer .plate::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.8));
+  }
+
+  /* right-side contact links */
+  .footer-contact{
+    position:absolute;
+    right:6vw;
+    top:50%;
+    bottom:8vh;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:1rem;
+    z-index:2;
+  }
+  .footer-contact a{
+    font-family:"Cinzel", serif;
+    font-size:1.4rem;
+    color:var(--fg);
+    text-decoration:none;
+    border-bottom:1px solid var(--fg);
+    padding-bottom:.2rem;
+  }
+
+  /* bottom-left quote */
+  .footer-quote{
+    position:absolute;
+    left:6vw;
+    bottom:35vh;
+    z-index:2;
+    max-width:26rem;
+  }
+  .footer-quote p{
+    font-family:"Cormorant Garamond", serif;
+    font-style:italic;
+    color:var(--fg);
+    font-size:1rem;
+    line-height:1.5;
+  }
+
+  @media (max-width: 780px){
+    header.hero{ min-height: 92vh; }
+    .vert-label{ writing-mode: horizontal-tb; top: 4vh; left: 6vw; }
+    h1.title{ position:static; text-align:left; transform:none; margin: 22vh 6vw 0; max-width: none; }
+    .handle{ position:static; transform:none; margin: 1.2rem 6vw 0; }
+    .epigraph{ position:static; transform:none; margin: 2rem 6vw 4vh; max-width:none; }
+
+    .folio.one, .folio.two, .folio.three{
+      margin-left:0; margin-right:0; text-align:left; transform:none;
+    }
+    .folio-inner{ max-width:none; margin-left:0; }
+    .ghost-no{ font-size: 4.5rem; }
+
+    .colophon-inner{ margin-left:0; }
+    .placeholder-note{ margin-right:0; transform:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; }
+    .vert-label, h1.title, .handle, .epigraph{ opacity:1; }
+  }
+
+  a:focus-visible{ outline:1px dashed var(--fg); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="plate">
+    <img src="https://avatars.githubusercontent.com/u/189524564?v=4" style="opacity: .5; pointer-events: none;" alt="Loading...">
+  </div>
+  <div class="vert-label">is that human after all?</div>
+  <h1 class="title">Evan Arganta</h1>
+  <div class="handle">github.com/evanarganta</div>
+  <p class="epigraph">The Death of Marat (French: La Mort de Marat or Marat Assassiné) is a 1793 painting by Jacques-Louis David depicting the artist's friend and murdered French revolutionary leader, Jean-Paul Marat.</p>
+</header>
+
+<section id="works">
+  <div class="folios">
+    <div class="folio one">
+      <div class="ghost-no">I</div>
+      <div class="folio-inner">
+        <div class="folio-body">
+          <h3><a href="https://github.com/evanarganta/discombobulator" target="_blank" rel="noopener">discombobulator</a></h3>
+          <p>A minimal browser-based image editor for total discombobulation, running entirely client-side with no server connection.</p>
+          <div class="stack">https://discombobulation.vercel.app/</div>
+          <div class="stamp" style="margin-right: .5rem;">CSS</div>
+          <div class="stamp" style="margin-right: .5rem;">HTML</div>
+          <div class="stamp">JavaScript</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folio two">
+      <div class="ghost-no">II</div>
+      <div class="folio-inner">
+        <div class="folio-body">
+          <h3><a href="https://github.com/Prono365/cursedisland" target="_blank" rel="noopener">cursed island</a></h3>
+          <p>Larikan diri dari pulau terkutuk ini dengan cara mengumpulkan anggota tim, mencari item kunci, memecahkan misteri, dan mengalahkan musuh menggunakan strategi kombinasi kartu poker. </p>
+          <div class="stamp">Python</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folio three">
+      <div class="ghost-no">III</div>
+      <div class="folio-inner">
+        <div class="folio-body">
+          <h3><a href="https://github.com/evanarganta/belles-lettres" target="_blank" rel="noopener">belles-lettres</a></h3>
+          <p>A lightweight text-logo generator that runs in your browser.</p>
+          <div class="stack">work in progress</div>
+          <div class="stamp" style="margin-right: .5rem;">CSS</div>
+          <div class="stamp" style="margin-right: .5rem;">HTML</div>
+          <div class="stamp">JavaScript</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="colophon" class="colophon">
+  <div class="colophon-inner">
+    <p>I begin with almost nothing, a line or two, then another beside it, then another because stopping there would feel dishonest, and the compiler objects as it always does, faithfully, while the shape underneath keeps shifting just beyond whatever I thought I understood, so I follow it — unfinished things have always seemed more alive than finished ones.</p>
+  </div>
+</section>
+
+<footer class="hero-footer">
+
+    <div class="plate">
+        <img src="https://avatars.githubusercontent.com/u/189524564?v=4" alt="Loading..." style="opacity: .75; pointer-events: none;">
+    </div>
+
+    <div class="footer-contact">
+        <a href="https://github.com/evanarganta">GITHUB</a>
+        <a href="mailto:evanarganta27@gmail.com">EMAIL</a>
+    </div>
+
+    <div class="footer-quote">
+        <p>Beget Order most elegant, from my tender reverie.</p>
+        <p>If thou covetest the throne,</p>
+        <p>Impress my vision upon thine heart.</p>
+        <p>In the new world of thy making,</p>
+        <p>all things will flourish,</p>
+        <p>whether graceful, or malign.</p>
+    </div>
+
+</footer>
+
+<audio id="ambience" loop preload="auto">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/7/7a/028-_Even_To_The_Edge_of_Doom.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const ambience = document.getElementById("ambience");
+ambience.volume = 1;
+
+function startAmbience() {
+    ambience.play().catch(console.error);
+
+    document.removeEventListener("pointerdown", startAmbience);
+    document.removeEventListener("keydown", startAmbience);
+    document.removeEventListener("scroll", startAmbience);
+    document.removeEventListener("click", startAmbience);
+}
+
+document.addEventListener("pointerdown", startAmbience);
+document.addEventListener("keydown", startAmbience);
+document.addEventListener("scroll", startAmbience);
+document.addEventListener("click", startAmbience);
+</script>
+
+</body>
+</html>
